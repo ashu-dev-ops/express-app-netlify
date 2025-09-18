@@ -10,20 +10,12 @@
    "engines": {
     "node": "18.18.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/neverendingqs/netlify-express.git"
-  },
   "keywords": [
     "netlify",
     "express.js"
   ],
   "author": "neverendingqs",
   "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/neverendingqs/netlify-express/issues"
-  },
-  "homepage": "https://github.com/neverendingqs/netlify-express#readme",
   "dependencies": {
     "dotenv": "^17.2.2",
     "googleapis": "^160.0.0"
