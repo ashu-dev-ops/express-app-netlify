@@ -18,7 +18,8 @@
   "license": "Apache-2.0",
   "dependencies": {
     "dotenv": "^17.2.2",
-    "googleapis": "^160.0.0"
+    "google-auth-library": "^8.9.0",
+    "googleapis": "^118.0.0"
   },
   "devDependencies": {
     "body-parser": "^1.19.0",
