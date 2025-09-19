@@ -31,7 +31,9 @@ app.post("/exchange-token", async (req, res) => {
   }
 });
 app.use("/.netlify/functions/server", router); // path must route to lambda
-app.use("/", (req, res) => res.sendFile(path.join(__dirname, "../index.html")));
+app.use("/", (req, res) => {
+  res.send("Hello World");
+});
 
 module.exports = app;
 module.exports.handler = serverless(app);
