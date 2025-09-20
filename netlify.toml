@@ -1,14 +1,5 @@
-[functions]
-  external_node_modules = [
-    "express",
-    "serverless-http",
-    "dotenv",
-    "path",
-    "body-parser",
-    "googleapis"
-  ]
-  node_bundler = "esbuild"
-
+[build]
+  functions = "netlify/functions"
 [[redirects]]
   force = true
   from = "/api/*"
