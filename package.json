@@ -1,31 +1,9 @@
 {
-  "name": "netlify-express",
-  "version": "0.0.1",
-  "description": "Example of how to deploy a Express.js Netlify app.",
-  "main": "functions/server.js",
-  "scripts": {
-    "build": "netlify-lambda build express",
-    "start": "node server-local.js"
-  },
-  "engines": {
-    "node": "18.18.0"
-  },
-  "keywords": [
-    "netlify",
-    "express.js"
-  ],
-  "author": "neverendingqs",
-  "license": "Apache-2.0",
   "dependencies": {
+    "@netlify/functions": "^4.2.5",
+    "body-parser": "^2.2.0",
     "dotenv": "^17.2.2",
-    "google-auth-library": "^8.9.0",
-    "googleapis": "^118.0.0"
-  },
-  "devDependencies": {
-    "body-parser": "^1.19.0",
-    "express": "^4.17.1",
-    "netlify-lambda": "^1.6.3",
-    "nodemon": "^1.19.2",
-    "serverless-http": "^2.3.0"
+    "express": "^5.1.0",
+    "serverless-http": "^4.0.0"
   }
 }
