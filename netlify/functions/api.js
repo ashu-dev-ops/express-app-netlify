@@ -16,7 +16,7 @@ api.use(bodyParser.json());
 const router = Router();
 
 router.post("/exchange-token", async (req, res) => {
-  res.send("Hello World");
+  // res.send("Hello World");
   console.log("Proxy exchange token request received", req.body);
   const { code, redirectUrl } = req.body;
   if (!code || !redirectUrl) {
