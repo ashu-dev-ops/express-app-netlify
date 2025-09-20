@@ -2,60 +2,38 @@
 
 import express, { Router } from "express";
 import serverless from "serverless-http";
+import dotenv from "dotenv";
+import bodyParser from "body-parser";
+import { google } from "googleapis";
 
+dotenv.config();
+
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const api = express();
 api.use(express.json()); // For parsing JSON request bodies
-
+api.use(bodyParser.json());
 const router = Router();
 
-// In-memory array to store records
-let records = [
-    { id: 1, name: "Record 1" },
-    { id: 2, name: "Record 2" }
-];
-
-// Create a new record
-router.post("/", (req, res) => {
-    const { id, name } = req.body;
-    if (!id || !name) return res.status(400).json({ message: "ID and name are required" });
-
-    records.push({ id, name });
-    res.status(201).json({ message: "Record created", record: { id, name } });
-});
-
-router.get('/file',(req,res) => {
-    res.sendFile(__dirname + "/index.html")
-})
-
-// Read all records
-router.get("/", (req, res) => {
-    res.json(records);
-});
-
-// Read a single record by ID
-router.get("/:id", (req, res) => {
-    const record = records.find(r => r.id === parseInt(req.params.id));
-    if (!record) return res.status(404).json({ message: "Record not found" });
-
-    res.json(record);
-});
-
-// Update a record by ID
-router.put("/:id", (req, res) => {
-    const { name } = req.body;
-    const record = records.find(r => r.id === parseInt(req.params.id));
-
-    if (!record) return res.status(404).json({ message: "Record not found" });
-    if (!name) return res.status(400).json({ message: "Name is required" });
-
-    record.name = name;
-    res.json({ message: "Record updated", record });
-});
-
-// Delete a record by ID
-router.delete("/:id", (req, res) => {
-    records = records.filter(r => r.id !== parseInt(req.params.id));
-    res.json({ message: "Record deleted" });
+router.post("/exchange-token", async (req, res) => {
+  res.send("Hello World");
+  console.log("Proxy exchange token request received", req.body);
+  const { code, redirectUrl } = req.body;
+  if (!code || !redirectUrl) {
+    return res.status(400).json({ error: "Missing code or redirectUrl" });
+  }
+  try {
+    const oAuth2Client = new google.auth.OAuth2(
+      CLIENT_ID,
+      CLIENT_SECRET,
+      redirectUrl
+    );
+    const { tokens } = await oAuth2Client.getToken(code);
+    res.json({ tokens });
+  } catch (err) {
+    console.error("Proxy exchange error:", err, err && err.message);
+    res.status(500).json({ error: "Token exchange failed" });
+  }
 });
 
 api.use("/api/", router);
